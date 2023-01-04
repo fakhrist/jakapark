@@ -42,12 +42,53 @@ $routes->get('/', 'Home::index');
 $routes->get('/profile', 'Profile::detail');
 $routes->get('/profile/(:segment)', 'Profile::update/$1');
 $routes->post('/profile/(:segment)', 'Profile::update_save/$1');
+
 //Profile Cars Update
 $routes->get('/car/', 'Car::insert');
 $routes->post('/car/insert_car', 'Car::insert_save');
 $routes->get('/car/(:segment)', 'Car::update/$1');
 $routes->post('/car/(:segment)', 'Car::update_save/$1');
 $routes->get('/car/delete/(:segment)', 'Car::delete/$1');
+
+//Building 
+$routes->get('/building/', 'Building::detail');
+$routes->get('/building/insert', 'Building::insert');
+$routes->post('/building/insert_building', 'Building::insert_save');
+$routes->get('/building/delete/(:segment)', 'Building::delete/$1');
+
+//Level
+$routes->get('/building/level/', 'Level::home');
+$routes->get('/building/level/(:segment)', 'Level::level_detail/$1');
+$routes->get('/building/insert_level/(:segment)', 'Level::insert/$1');
+$routes->post('/building/insert_level', 'Level::insert_save');
+$routes->get('/building/delete_level/(:segment)', 'Level::delete/$1');
+
+//Section
+$routes->get('/building/section/(:segment)', 'Section::section_detail/$1');
+$routes->get('/building/insert_section/(:num)', 'Section::insert/$1');
+$routes->post('/building/insert_section', 'Section::insert_save');
+$routes->get('/building/delete_section/(:segment)', 'Section::delete/$1');
+
+//Book Parking
+$routes->get('/parking/', 'Booking::detail');
+$routes->get('/parking/book', 'Booking::insert');
+$routes->post('/parking/book', 'Booking::insert_save');
+$routes->get('/parking/review/(:segment)', 'Booking::review');
+$routes->post('/parking/review', 'Booking::insert_review');
+$routes->get('/parking/payment/(:segment)', 'Booking::payment');
+$routes->post('/parking/payment', 'Booking::insert_payment');
+$routes->get('/parking/confirmation/(:segment)', 'Booking::confirmation');
+
+$routes->get('/parking/book/(:segment)', 'Booking::delete/$1');
+
+
+//Book Parking
+$routes->get('/testapi', 'TestApi::showAPI');
+
+
+$routes->get('/building/(:segment)', 'Building::update/$1');
+$routes->post('/building/(:segment)', 'Building::update_save/$1');
+
 
 /*
  * --------------------------------------------------------------------
