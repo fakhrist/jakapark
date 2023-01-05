@@ -5,8 +5,8 @@
       <tr>
         <th>No</th>
         <th>Booking Code</th>
-        <th>Tanggal</th>
-        <th>Durasi Parkir</th>
+        <th>Start Parkir</th>
+        <th>Selesai Parkir</th>
         <th>Lokasi</th>
         <th>Aksi</th>
       </tr>
@@ -21,8 +21,8 @@
           <td><?= $row['endrent']; ?></td>
           <td><?= $row['gedung']; ?></td>
           <td>
-            <a href="<?= site_url('building/detail/'.$row['spaceid']) ?>">[ Lihat Booking ]</a> /
-            <a href="<?= site_url('building/delete/'.$row['spaceid']) ?>" onclick="return confirm('Anda Yakin menghapus datanya?')">[ Delete ]</a>
+            <a href="<?= site_url('building/detail/'.$row['bookid']) ?>">[ Lihat Booking ]</a> /
+            <a href="<?= site_url('building/delete/'.$row['bookid']) ?>" onclick="return confirm('Anda Yakin menghapus datanya?')">[ Delete ]</a>
           </td>
         </tr>
       <?php endforeach ?>

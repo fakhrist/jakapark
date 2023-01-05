@@ -15,7 +15,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
+  CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=5",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,

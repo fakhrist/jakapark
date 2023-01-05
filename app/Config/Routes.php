@@ -73,16 +73,22 @@ $routes->get('/building/delete_section/(:segment)', 'Section::delete/$1');
 $routes->get('/parking/', 'Booking::detail');
 $routes->get('/parking/book', 'Booking::insert');
 $routes->post('/parking/book', 'Booking::insert_save');
-$routes->get('/parking/review/(:segment)', 'Booking::review');
+$routes->get('/parking/review/(:segment)', 'Booking::review/$1');
 $routes->post('/parking/review', 'Booking::insert_review');
-$routes->get('/parking/payment/(:segment)', 'Booking::payment');
+$routes->get('/parking/payment/(:segment)', 'Booking::payment/$1');
 $routes->post('/parking/payment', 'Booking::insert_payment');
-$routes->get('/parking/confirmation/(:segment)', 'Booking::confirmation');
+$routes->get('/parking/confirmation/(:segment)', 'Booking::confirmation/$1');
 
 $routes->get('/parking/book/(:segment)', 'Booking::delete/$1');
 
+//Search on Parking Book
+$routes->get('/parking/search-city/(:segment)', 'Booking::searchcity/$1');
+$routes->post('/parking/search-building/', 'Booking::searchbuilding');
+$routes->post('/parking/search-level/', 'Booking::searchlevel');
+$routes->post('/parking/search-area/', 'Booking::searcharea');
+$routes->post('/parking/search-space/', 'Booking::searchspace');
 
-//Book Parking
+//TestAPI
 $routes->get('/testapi', 'TestApi::showAPI');
 
 
