@@ -1,3 +1,6 @@
+<?= $this->extend('themes/index'); ?>
+<?= $this->section('content'); ?>
+
 <h1>Data Profil</h1>
 
 Nama : <?= $profil['nama'] ?>
@@ -42,3 +45,5 @@ Email : <?= $profil['email'] ?>
     </tbody>
 </table>
 <a href="<?= site_url('car/') ?>">Tambah Kendaraan</a>
+
+<?= $this->endSection('content'); ?>
