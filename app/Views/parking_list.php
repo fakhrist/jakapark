@@ -1,6 +1,6 @@
 <?= $this->extend('themes/index'); ?>
 <?= $this->section('content'); ?>
-
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 <h1>Daftar Booking Parkir</h1>
 
 <table border="1">
@@ -26,13 +26,15 @@
           <td><?= $row['endrent']; ?></td>
           <td><?= $row['gedung']; ?></td>
           <td>
-            <a href="<?= site_url('building/detail/'.$row['bookid']) ?>">[ Lihat Booking ]</a> /
-            <a href="<?= site_url('building/delete/'.$row['bookid']) ?>" onclick="return confirm('Anda Yakin menghapus datanya?')">[ Delete ]</a>
+            <a href="#" class='modalViewBooking' data-booking='<?= $row['bookid'] ?>' data-toggle="modal" data-target="#BookingModal">[ Lihat Booking ]</a> /
+            <a href="<?= site_url('parking/delete/'.$row['bookid']) ?>" onclick="return confirm('Anda Yakin menghapus datanya?')">[ Delete ]</a>
           </td>
         </tr>
       <?php endforeach ?>
     </tbody>
 </table>
 <a href="<?= site_url('parking/book') ?>">Booking Parkir</a>
+
+
 
 <?= $this->endSection('content'); ?>

@@ -6,7 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
-        "codeigniter4/framework": "^4.0"
+        "codeigniter4/framework": "^4.0",
+        "phpoffice/phpspreadsheet": "^1.26",
+        "dompdf/dompdf": "^2.0",
+        "endroid/qr-code": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

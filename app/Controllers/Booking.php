@@ -13,6 +13,15 @@ use App\Models\ParkingrateModel;
 use App\Models\ChannelServiceModel;
 use App\Models\AccpaymentModel;
 
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
+
 class Booking extends BaseController
 {
     public function __construct()
@@ -32,7 +41,7 @@ class Booking extends BaseController
 
     public function detail()
     {   
-        $filterId = 1;
+        $filterId = session()->get('profile_id');
         //Select Data Kendaraan (join car & profile)
         $booking = $this->BookingModel->select('*,gp.gedung, cd.plate, cd.name as mobil')
                 ->join('gedung_parkir gp','spacerent = gp.secid', 'left')
@@ -48,7 +57,7 @@ class Booking extends BaseController
 
     public function insert()
     {   
-        $filterId = 1;
+        $filterId = session()->get('profile_id');
         //Select Data Kendaraan (join car & profile)
         $mobil = $this->CarModel->select('cardata.id as idCar, plate, type, name, brand')->join('profile pr','owners = pr.id')->
                 where('owners', $filterId)->orderBy('plate')->findAll(); 
@@ -292,7 +301,46 @@ class Booking extends BaseController
       } 
 
       return $data; 
-    }    
+    }  
+    
+    public function searchbooking()
+    {   
+      $filterId = $this->request->getVar('searching');
+ 
+      //Select Data Kendaraan (join car & profile)
+      $booking = $this->BookingModel->select('*,gp.gedung, gp.kab, gp.alamat, cd.plate, cd.name as mobil')
+              ->join('gedung_parkir gp','spacerent = gp.secid', 'left')
+              ->join('cardata cd','cd.id = vehicleid', 'left')
+              ->where('bookid', $filterId)->orderBy('startrent')->first(); 
+
+              $writer = new PngWriter();
+
+        // Create QR code
+        $qrtext = $booking['bookid'];
+        $qrCode = QrCode::create($qrtext)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        $result = $writer->write($qrCode);
+        
+        $dataUri = $result->getDataUri();
+
+      $data = "<img src='".$dataUri."'></br>"; 
+      $data .= "<h4><strong>Booking Code : ".$booking['bookid']." </strong></h4>";
+      $data .= "Kendaraan : ".$booking['mobil']." </br>";
+      $data .= "Plat Nomor : ".$booking['plate']." </br></br>";
+      $data .= "<h4>Lokasi Parkir : ".$booking['gedung']." </h4>";
+      $data .= "<small>".$booking['kab'].", ".$booking['alamat']." </small></br>";
+      $data .= "Waktu Kedatangan : ".$booking['startrent']." </br>";
+      $data .= "Waktu Selesai : ".$booking['endrent']." </br>";
+
+      return $data; 
+    }  
 
     public function confirmation($id)
     {   

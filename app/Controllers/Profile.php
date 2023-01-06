@@ -16,7 +16,7 @@ class Profile extends BaseController
 
     public function detail()
     {   
-        $filterId = 1;
+        $filterId = session()->get('profile_id');
         //Data Profile Pengguna (Filter by id)
         $profil =  $this->ProfileModel->where('id', $filterId)->first();
         //Select Data Kendaraan (join car & profile)

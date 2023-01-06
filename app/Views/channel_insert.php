@@ -8,7 +8,7 @@
     <tr>
       <td>Nama :</td>
       <td>
-        <input type="text" name="method" id="method" value="<?= $id; ?>"/>   
+        <input type="text" name="method" id="method" value="<?= $id; ?>" hidden readonly/>   
         <input type="text" name="nama" id="nama" />                            
       </td>
     </tr>

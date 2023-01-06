@@ -35,23 +35,32 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/home', 'Home::dashboard');
-$routes->get('/report', 'Report::dashboard');
+//Login
+$routes->get('/login', 'Auth::login');
+$routes->post('/login', 'Auth::login_submit');
+$routes->get('/logout', 'Auth::logout');
+
+$routes->post('/register_user', 'Auth::register');
+$routes->get('/login/(:segment)', 'Auth::login_after_reg');
+
+
+$routes->get('/', 'Auth::login');
+$routes->get('/home', 'Home::dashboard', ['filter' => 'authGuard']);
+
 //Profile
-$routes->get('/profile', 'Profile::detail');
+$routes->get('/profile', 'Profile::detail', ['filter' => 'authGuard']);
 $routes->get('/profile/(:segment)', 'Profile::update/$1');
 $routes->post('/profile/(:segment)', 'Profile::update_save/$1');
 
 //Profile Cars Update
-$routes->get('/car/', 'Car::insert');
+$routes->get('/car/', 'Car::insert', ['filter' => 'authGuard']);
 $routes->post('/car/insert_car', 'Car::insert_save');
 $routes->get('/car/(:segment)', 'Car::update/$1');
 $routes->post('/car/(:segment)', 'Car::update_save/$1');
 $routes->get('/car/delete/(:segment)', 'Car::delete/$1');
 
 //Building 
-$routes->get('/building/', 'Building::detail');
+$routes->get('/building/', 'Building::detail', ['filter' => 'authGuard']);
 $routes->get('/building/insert', 'Building::insert');
 $routes->post('/building/insert_building', 'Building::insert_save');
 $routes->get('/building/delete/(:segment)', 'Building::delete/$1');
@@ -74,7 +83,7 @@ $routes->post('/building/insert_section', 'Section::insert_save');
 $routes->get('/building/delete_section/(:segment)', 'Section::delete/$1');
 
 //Book Parking
-$routes->get('/parking/', 'Booking::detail');
+$routes->get('/parking/', 'Booking::detail', ['filter' => 'authGuard']);
 $routes->get('/parking/book', 'Booking::insert');
 $routes->post('/parking/book', 'Booking::insert_save');
 $routes->get('/parking/review/(:segment)', 'Booking::review/$1');
@@ -84,6 +93,7 @@ $routes->post('/parking/payment', 'Booking::insert_payment');
 $routes->get('/parking/confirmation/(:segment)', 'Booking::confirmation/$1');
 $routes->post('/parking/confirmation', 'Booking::paid');
 $routes->post('/parking/search-service/', 'Booking::searchservice');
+$routes->post('/parking/search-booking/', 'Booking::searchbooking');
 
 $routes->get('/parking/book/(:segment)', 'Booking::delete/$1');
 
@@ -101,6 +111,17 @@ $routes->post('/payment/add_method', 'Payment::insert_save');
 $routes->get('/payment/channel/(:segment)', 'Payment::list_channel/$1');
 $routes->get('/payment/channel_add/(:segment)', 'Payment::channel_add/$1');
 $routes->post('/payment/channel_add', 'Payment::insert_channel');
+
+//Report
+$routes->get('/report', 'Report::dashboard');
+$routes->get('/report/xls', 'Report::ExportXLS');
+$routes->get('/report/pdf', 'Report::ExportPDF');
+
+//Profile
+$routes->get('/user', 'User::detail', ['filter' => 'authGuard']);
+$routes->get('/user/access/(:segment)', 'User::update/$1');
+$routes->post('/user/access/', 'User::update_save/$1');
+$routes->get('/user/delete/(:segment)', 'User::delete/$1');
 
 //TestAPI
 $routes->get('/testapi', 'TestApi::showAPI');

@@ -13,6 +13,8 @@ Email : <?= $profil['email'] ?>
 <br />
 <a href="<?= site_url('profile/'.$profil['id']) ?>">Perbarui Data</a>
 <br />
+<br />
+<br />
 
 <h1>Daftar Kepemilikan Kendaraan</h1>
 

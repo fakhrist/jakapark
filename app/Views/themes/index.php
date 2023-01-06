@@ -9,11 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png"> -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url('assets/images/favicon.png')?>">
     <title>JakaPark</title>
     <!-- Custom CSS -->
-    <!-- <link href="../../dist/css/style.min.css" rel="stylesheet"> -->
     <link href="<?=base_url('/dist/css/style.min.css')?>" rel="stylesheet">
 </head>
 
@@ -66,23 +64,6 @@
     <!--Custom JavaScript -->
     <script src="<?=base_url('dist/js/custom.min.js')?>"></script>    
 
-    <!-- <script src="../../assets/libs/jquery/dist/jquery.min.js"></script> -->
-    <!-- Bootstrap tether Core JavaScript -->
-    <!-- <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script> -->
-    <!-- <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script> -->
-    <!-- apps -->
-    <!-- <script src="../../dist/js/app.min.js"></script> -->
-    <!-- <script src="../../dist/js/app.init.light-sidebar.js"></script> -->
-    <!-- <script src="../../dist/js/app-style-switcher.js"></script> -->
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <!-- <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script> -->
-    <!-- <script src="../../assets/extra-libs/sparkline/sparkline.js"></script> -->
-    <!--Wave Effects -->
-    <!-- <script src="../../dist/js/waves.js"></script> -->
-    <!--Menu sidebar -->
-    <!-- <script src="../../dist/js/sidebarmenu.js"></script> -->
-    <!--Custom JavaScript -->
-    <!-- <script src="../../dist/js/custom.min.js"></script> -->
 </body>
 
 </html>

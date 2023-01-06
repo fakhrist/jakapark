@@ -9,16 +9,16 @@
                     <!-- User Profile-->
                     <div class="user-profile dropdown m-t-20">
                         <div class="user-pic">
-                            <img src="<?=base_url('assets/images/users/1.jpg')?>" alt="users" class="rounded-circle img-fluid" />
+                            <img src="<?=base_url('assets/images/users/1.png')?>" alt="users" class="rounded-circle img-fluid" />
                         </div>
                         <div class="user-content hide-menu m-t-10">
-                            <h5 class="m-b-10 user-name font-medium">Steave Jobs</h5>
+                            <h5 class="m-b-10 user-name font-medium"><?=session()->get('username')?></h5>
                             <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="ti-settings"></i>
                             </a>
                             <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="<?=site_url('logout')?>">
                                     <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
                         </div>
@@ -52,7 +52,8 @@
                         <i class="sl-icon-graph"></i>
                         <span class="hide-menu">Report</span>
                     </a>
-                </li>                
+                </li>   
+                <?php if(session()->get('tipe') == 'admin'):?>           
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)
                             " aria-expanded="false">
@@ -80,6 +81,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php endif?>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
