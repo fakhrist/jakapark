@@ -1,3 +1,6 @@
+<?= $this->extend('themes/index'); ?>
+<?= $this->section('content'); ?>
+
 <h1>Daftar Booking Parkir</h1>
 
 <table border="1">
@@ -29,3 +32,5 @@
     </tbody>
 </table>
 <a href="<?= site_url('parking/book') ?>">Booking Parkir</a>
+
+<?= $this->endSection('content'); ?>

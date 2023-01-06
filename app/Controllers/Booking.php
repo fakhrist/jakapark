@@ -9,6 +9,9 @@ use App\Models\BuildingModel;
 use App\Models\ProfileModel;
 use App\Models\CarModel;
 use App\Models\GedungparkirModel;
+use App\Models\ParkingrateModel;
+use App\Models\ChannelServiceModel;
+use App\Models\AccpaymentModel;
 
 class Booking extends BaseController
 {
@@ -22,6 +25,9 @@ class Booking extends BaseController
         $this->ProfileModel = new ProfileModel();
         $this->CarModel = new CarModel();
         $this->GedungparkirModel = new GedungparkirModel();
+        $this->ParkingrateModel = new ParkingrateModel();
+        $this->ChannelServiceModel = new ChannelServiceModel();
+        $this->AccpaymentModel = new AccpaymentModel();
     }
 
     public function detail()
@@ -231,5 +237,83 @@ class Booking extends BaseController
         ];
 
         return view('parking_review', $output);                
+    }
+
+    public function payment($id)
+    {   
+        $booking =  $this->BookingModel->where('bookid', $id)->first();
+        //Select Data Kendaraan (join car & profile)
+        $buildingFilter = $booking['spacerent'];
+        $parkir = $this->GedungparkirModel->where('secid', $buildingFilter)->first(); 
+        // $cost = $this->ParkingrateModel->where('building', 1)->first(); 
+        $channel = $this->ChannelServiceModel->select('DISTINCT(methodid) as methodid, methodname')->orderBy('id')->findAll(); 
+
+        $output = [
+            'booking' => $booking,
+            'parkir' => $parkir,
+            'payment' => $channel,
+        ];
+
+        return view('parking_payment', $output);                
+    }
+
+    public function insert_payment()
+    {
+        $bcode = $this->request->getVar('bookingcode');
+        $costs = $this->request->getVar('biaya');
+        $metod = $this->request->getVar('metode');
+        $chnnl = $this->request->getVar('channel');
+
+        //insert data
+        $this->AccpaymentModel->insert([
+            'bookid' => $bcode,
+            'total' => $costs,
+            'metode' => $metod,
+            'account' => $chnnl,
+        ]);
+
+        return redirect()->to('parking/confirmation/'.$bcode);
+    }
+
+    public function searchservice()
+    {   
+      $idFilter = $this->request->getVar('searching');
+ 
+      $query   = $this->ChannelServiceModel->query("SELECT DISTINCT(id) as payid, nama_akun as akun FROM channel_service WHERE methodid = '$idFilter'");
+      $results = $query->getResult();
+      $data ='<option value="">Pilih Salah Satu</option>';
+      foreach ($results as $row) 
+      {
+              $payid = $row->payid;
+              $akun = $row->akun;
+              $data .= "<option value='$payid'>$akun</option>";
+      } 
+
+      return $data; 
+    }    
+
+    public function confirmation($id)
+    {   
+        $booking =  $this->BookingModel->where('bookid', $id)->first();
+        //Select Data Kendaraan (join car & profile)
+        $buildingFilter = $booking['spacerent'];
+        $parkir = $this->GedungparkirModel->where('secid', $buildingFilter)->first(); 
+        
+        $output = [
+            'booking' => $booking,
+            'parkir' => $parkir,
+        ];
+
+        return view('parking_confirmation', $output);                
+    }
+
+    public function paid()
+    {
+        $book = $this->request->getVar('booking');
+        $paid = $this->request->getVar('bayar');
+
+        $query   = $this->AccpaymentModel->query("UPDATE booking_payment bp SET bp.status = 1 WHERE bookid = '$book'"); 
+
+        return redirect()->to('parking');
     }
 }

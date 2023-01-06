@@ -37,6 +37,15 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+//Payment
+$routes->get('/payment', 'Payment::list');
+$routes->get('/payment/add_method', 'Payment::insert');
+$routes->post('/payment/add_method', 'Payment::insert_save');
+$routes->get('/payment/channel/(:segment)', 'Payment::list_channel/$1');
+
+$routes->get('/payment/channel_add/(:segment)', 'Payment::channel_add/$1');
+$routes->post('/payment/channel_add', 'Payment::insert_channel');
+
 
 //Profile
 $routes->get('/profile', 'Profile::detail');
@@ -55,6 +64,10 @@ $routes->get('/building/', 'Building::detail');
 $routes->get('/building/insert', 'Building::insert');
 $routes->post('/building/insert_building', 'Building::insert_save');
 $routes->get('/building/delete/(:segment)', 'Building::delete/$1');
+$routes->get('/building/rate/(:segment)', 'Building::rate_insert/$1');
+$routes->post('/building/rate/', 'Building::rate_insertsave');
+$routes->get('/building/rate_update/(:segment)', 'Building::rate_update/$1');
+$routes->post('/building/rate_update', 'Building::rate_save');
 
 //Level
 $routes->get('/building/level/', 'Level::home');
@@ -78,6 +91,9 @@ $routes->post('/parking/review', 'Booking::insert_review');
 $routes->get('/parking/payment/(:segment)', 'Booking::payment/$1');
 $routes->post('/parking/payment', 'Booking::insert_payment');
 $routes->get('/parking/confirmation/(:segment)', 'Booking::confirmation/$1');
+$routes->post('/parking/confirmation', 'Booking::paid');
+$routes->post('/parking/search-service/', 'Booking::searchservice');
+// $routes->get('/parking/payment/(:segment)', 'Booking::payment/$1');
 
 $routes->get('/parking/book/(:segment)', 'Booking::delete/$1');
 

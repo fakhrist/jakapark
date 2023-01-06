@@ -14,7 +14,12 @@ Parkir : <?= $parkir['name'].' / Baris : '.$booking['baris'].' / Kolom : '.$book
 Waktu : <?= $booking['startrent'].' sampai dengan '.$booking['endrent'] ?>
 <br />
 Cancel
-<a href="<?= site_url('parking/payment/'.$booking['bookid']) ?>">Confirm</a>
+<form method="post" action="<?= site_url('parking/confirmation') ?>">
+    <?= csrf_field() ?>
+    <input type="text" name="booking" id="booking" value="<?= $booking['bookid'] ?>">
+    <input type="text" name="bayar" id="bayar" value="1">
+    <button type="submit">Bayar</button>
+</form>
 
 <?= $this->endSection('content'); ?>
 

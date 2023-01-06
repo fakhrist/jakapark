@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\SectionModel;
 use App\Models\LevelModel;
 use App\Models\BuildingModel;
+use App\Models\ParkingrateModel;
 
 class Building extends BaseController
 {
@@ -14,14 +15,18 @@ class Building extends BaseController
         $this->SectionModel = new SectionModel();
         $this->LevelModel = new LevelModel();
         $this->BuildingModel = new BuildingModel();
+        $this->ParkingrateModel = new ParkingrateModel();
     }
 
     public function detail()
     {   
         //Data Detail Lokasi Parkir
         $parkingdata = $this->BuildingModel->select('building.spaceid, building.nama, building.prov, building.kab, building.kec, building.fulladdress,COUNT(bl.buildcode) as totalLevel,
-        SUM(COALESCE((SELECT SUM(COALESCE(bs.totalrow,0)*COALESCE(bs.spacerow,0)) as Totals FROM building_section bs WHERE bs.levelcode = bl.levelid GROUP BY bs.levelcode),0)) as totalParking')
-        ->join('building_level bl','building.spaceid = bl.buildcode', 'left')->groupBy('building.spaceid')->orderBy('building.spaceid')->findAll();
+        SUM(COALESCE((SELECT SUM(COALESCE(bs.totalrow,0)*COALESCE(bs.spacerow,0)) as Totals FROM building_section bs WHERE bs.levelcode = bl.levelid GROUP BY bs.levelcode),0)) as totalParking,
+        COALESCE(pr.ratepark,0) as rate')
+        ->join('building_level bl','building.spaceid = bl.buildcode', 'left')
+        ->join('parking_rate pr','building.spaceid = pr.building', 'left')
+        ->groupBy('building.spaceid')->orderBy('building.spaceid')->findAll();
 
         $output = [
             'building' => $parkingdata
@@ -57,40 +62,56 @@ class Building extends BaseController
         return redirect()->to('building/level/'.$building['spaceid']);
     }
 
-    // public function update($id)
-    // {
-    //     //Data Profile Pengguna (Filter by id)
-    //     $profil =  $this->BuildingModel->where('id', $id)->first();
-        
-    //     $output = [
-    //         'profil' => $profil,
-    //     ];
-
-    //     return view('profile_update', $output);
-    // }
-
-    // public function update_save($id)
-    // {
-    //     $nama = $this->request->getVar('nama');
-    //     $adrs = $this->request->getVar('alamat');
-    //     $telp = $this->request->getVar('telp');
-    //     $mail = $this->request->getVar('email');
-
-    //     //update data ke table
-    //     $this->BuildingModel->update($id, [
-    //         'nama' => $nama,
-    //         'alamat' => $adrs,
-    //         'telp' => $telp,
-    //         'email' => $mail
-    //     ]);
-
-    //     return redirect()->to('profile/');
-    // }
-
     public function delete($id)
     {   
         $this->BuildingModel->where('spaceid', $id)->delete();
         return redirect()->to('building');
     }
 
+    public function rate_insert($id)
+    {
+        $output = [
+            'id' => $id,
+        ];
+
+        return view('parkingrate_save', $output);
+    }
+
+    public function rate_insertsave()
+    {
+        $bldg = $this->request->getVar('building');
+        $rate = $this->request->getVar('rate');
+
+        //insert data
+        $this->ParkingrateModel->insert([
+            'building' => $bldg,
+            'ratepark' => $rate
+        ]);
+
+        return redirect()->to('building');
+    }
+
+    public function rate_update($id)
+    {
+        $parkrate =  $this->ParkingrateModel->where('building', $id)->first();
+        
+        $output = [
+            'rate' => $parkrate,
+        ];
+
+        return view('parkingrate_update', $output);
+    }
+
+    public function rate_save()
+    {
+        $idpr = $this->request->getVar('id');
+        $rate = $this->request->getVar('rate');
+
+        //update data ke table
+        $this->ParkingrateModel->update($idpr, [
+            'ratepark' => $rate,
+        ]);
+
+        return redirect()->to('building');
+    }
 }

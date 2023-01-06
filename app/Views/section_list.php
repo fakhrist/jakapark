@@ -1,3 +1,6 @@
+<?= $this->extend('themes/index'); ?>
+<?= $this->section('content'); ?>
+
 <h1>Gedung Parkir <?= $building['nama'] ?></h1>
 <h1>Daftar Area di Lantai : <?= $level['name'] ?></h1>
 <a href="<?= site_url('building/') ?>"><?= $building['nama'] ?></a> / <a href="<?= site_url('building/level/'.$building['spaceid']) ?>"><?= $level['name'] ?></a> / Daftar Area Parkir
@@ -32,3 +35,5 @@
     </tbody>
 </table>
 <a href="<?= site_url('building/insert_section/'.$level['levelid']) ?>">Tambah Level</a>
+
+<?= $this->endSection('content'); ?>

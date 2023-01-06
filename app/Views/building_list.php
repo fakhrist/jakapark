@@ -1,6 +1,8 @@
+<?= $this->extend('themes/index'); ?>
+<?= $this->section('content'); ?>
+
 <h1>Daftar Gedung Parkir</h1>
 
-Daftar Gedung Parkir
 <table border="1">
     <thead>
       <tr>
@@ -12,6 +14,7 @@ Daftar Gedung Parkir
         <th>Alamat Lengkap</th>
         <th>Jumlah Lantai</th>
         <th>Total Kapasitas</th>
+        <th>Parking Rate</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -28,6 +31,13 @@ Daftar Gedung Parkir
           <td><a href="<?= site_url('building/level/'.$row['spaceid']) ?>"><?= $row['totalLevel']; ?> Level</a></td>
           <td><?= $row['totalParking']; ?> Tempat Parkir</td>
           <td>
+            <?php if($row['rate']>1){?> 
+              <a href="<?= site_url('building/rate_update/'.$row['spaceid']) ?>">Rp <?= number_format(($row['rate']),0,",","."); ?>  </a>
+            <?php }else{?> 
+              <a href="<?= site_url('building/rate/'.$row['spaceid']) ?>">[Set Price]</a>
+            <?php }?> 
+          </td>
+          <td>
             <a href="<?= site_url('building/detail/'.$row['spaceid']) ?>">[ Detail ]</a> /
             <a href="<?= site_url('building/'.$row['spaceid']) ?>">[ Update ]</a> /  
             <a href="<?= site_url('building/delete/'.$row['spaceid']) ?>" onclick="return confirm('Anda Yakin menghapus datanya?')">[ Delete ]</a>
@@ -37,3 +47,6 @@ Daftar Gedung Parkir
     </tbody>
 </table>
 <a href="<?= site_url('building/insert') ?>">Tambah Lokasi Parkir</a>
+
+
+<?= $this->endSection('content'); ?>

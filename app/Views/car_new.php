@@ -1,3 +1,6 @@
+<?= $this->extend('themes/index'); ?>
+<?= $this->section('content'); ?>
+
 <form method="post" action="<?= site_url('car/insert_car') ?>">
   <?= csrf_field() ?>
   <table>
@@ -33,3 +36,5 @@
     </tr>
   </table>
 </form>
+
+<?= $this->endSection('content'); ?>

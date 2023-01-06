@@ -1,3 +1,6 @@
+<?= $this->extend('themes/index'); ?>
+<?= $this->section('content'); ?>
+
 <form method="post" action="<?= site_url('building/insert_building') ?>">
   <?= csrf_field() ?>
   <table>
@@ -39,3 +42,6 @@
     </tr>
   </table>
 </form>
+
+
+<?= $this->endSection('content'); ?>
