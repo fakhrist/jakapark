@@ -36,17 +36,8 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-
-//Payment
-$routes->get('/payment', 'Payment::list');
-$routes->get('/payment/add_method', 'Payment::insert');
-$routes->post('/payment/add_method', 'Payment::insert_save');
-$routes->get('/payment/channel/(:segment)', 'Payment::list_channel/$1');
-
-$routes->get('/payment/channel_add/(:segment)', 'Payment::channel_add/$1');
-$routes->post('/payment/channel_add', 'Payment::insert_channel');
-
-
+$routes->get('/home', 'Home::dashboard');
+$routes->get('/report', 'Report::dashboard');
 //Profile
 $routes->get('/profile', 'Profile::detail');
 $routes->get('/profile/(:segment)', 'Profile::update/$1');
@@ -93,7 +84,6 @@ $routes->post('/parking/payment', 'Booking::insert_payment');
 $routes->get('/parking/confirmation/(:segment)', 'Booking::confirmation/$1');
 $routes->post('/parking/confirmation', 'Booking::paid');
 $routes->post('/parking/search-service/', 'Booking::searchservice');
-// $routes->get('/parking/payment/(:segment)', 'Booking::payment/$1');
 
 $routes->get('/parking/book/(:segment)', 'Booking::delete/$1');
 
@@ -104,9 +94,16 @@ $routes->post('/parking/search-level/', 'Booking::searchlevel');
 $routes->post('/parking/search-area/', 'Booking::searcharea');
 $routes->post('/parking/search-space/', 'Booking::searchspace');
 
+//Payment
+$routes->get('/payment', 'Payment::list');
+$routes->get('/payment/add_method', 'Payment::insert');
+$routes->post('/payment/add_method', 'Payment::insert_save');
+$routes->get('/payment/channel/(:segment)', 'Payment::list_channel/$1');
+$routes->get('/payment/channel_add/(:segment)', 'Payment::channel_add/$1');
+$routes->post('/payment/channel_add', 'Payment::insert_channel');
+
 //TestAPI
 $routes->get('/testapi', 'TestApi::showAPI');
-
 
 $routes->get('/building/(:segment)', 'Building::update/$1');
 $routes->post('/building/(:segment)', 'Building::update_save/$1');

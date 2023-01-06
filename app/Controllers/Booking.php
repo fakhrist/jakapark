@@ -34,9 +34,11 @@ class Booking extends BaseController
     {   
         $filterId = 1;
         //Select Data Kendaraan (join car & profile)
-        $booking = $this->BookingModel->select('*,gp.gedung')->join('gedung_parkir gp','spacerent = gp.secid')->
-                where('userid', $filterId)->orderBy('startrent')->findAll(); 
-        
+        $booking = $this->BookingModel->select('*,gp.gedung, cd.plate, cd.name as mobil')
+                ->join('gedung_parkir gp','spacerent = gp.secid', 'left')
+                ->join('cardata cd','cd.id = vehicleid', 'left')
+                ->where('userid', $filterId)->orderBy('startrent')->findAll(); 
+
         $output = [
             'booking' => $booking
         ];

@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class BookingModel extends Model
 {
     protected $table = 'booking';
-    protected $allowedFields = ['bookid','userid','vechileid','spacerent','baris','kolom','datebook','startrent','endrent'];
+    protected $allowedFields = ['bookid','userid','vehicleid','spacerent','baris','kolom','datebook','startrent','endrent'];
 }
 
 // Create table view gedung_parkir

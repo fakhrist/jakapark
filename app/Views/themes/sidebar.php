@@ -19,8 +19,6 @@
                             </a>
                             <div class="dropdown-menu animated flipInY" aria-labelledby="Userdd">
                                 <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
                         </div>
@@ -28,12 +26,33 @@
                     <!-- End User Profile-->
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?=site_url('home');?>
                             " aria-expanded="false">
-                        <i class="sl-icon-loop"></i>
-                        <span class="hide-menu">Back To Home</span>
+                        <i class="sl-icon-home"></i>
+                        <span class="hide-menu">Home</span>
+                    </a>
+                </li>                
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?=site_url('profile');?>
+                            " aria-expanded="false">
+                        <i class="sl-icon-user-following"></i>
+                        <span class="hide-menu">My Profile</span>
+                    </a>
+                </li>                
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?=site_url('parking');?>
+                            " aria-expanded="false">
+                        <i class="sl-icon-star"></i>
+                        <span class="hide-menu">Parking</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?=site_url('report');?>
+                            " aria-expanded="false">
+                        <i class="sl-icon-graph"></i>
+                        <span class="hide-menu">Report</span>
+                    </a>
+                </li>                
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)
                             " aria-expanded="false">
@@ -54,9 +73,9 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?=site_url('parking');?>" class="sidebar-link">
+                            <a href="<?=site_url('user');?>" class="sidebar-link">
                                 <i class="mdi mdi-playlist-check"></i>
-                                <span class="hide-menu">Parking</span>
+                                <span class="hide-menu">User</span>
                             </a>
                         </li>
                     </ul>

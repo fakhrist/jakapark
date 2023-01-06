@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th>No</th>
+        <th>Kendaraan</th>
         <th>Booking Code</th>
         <th>Start Parkir</th>
         <th>Selesai Parkir</th>
@@ -19,6 +20,7 @@
       <?php foreach ($booking as $row) : ?>
         <tr>
           <td><?= $num++; ?></td>
+          <td><?= $row['mobil'].' ['.$row['plate']; ?>]</td>
           <td><?= $row['bookid']; ?></td>
           <td><?= $row['startrent']; ?></td>
           <td><?= $row['endrent']; ?></td>
