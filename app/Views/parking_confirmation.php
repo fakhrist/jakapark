@@ -17,7 +17,7 @@ Cancel
 <form method="post" action="<?= site_url('parking/confirmation') ?>">
     <?= csrf_field() ?>
     <input type="text" name="booking" id="booking" value="<?= $booking['bookid'] ?>">
-    <input type="text" name="bayar" id="bayar" value="1">
+    <input type="text" name="bayar" id="bayar" value="1" hidden>
     <button type="submit">Bayar</button>
 </form>
 
